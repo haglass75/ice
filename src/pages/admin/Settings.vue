@@ -247,25 +247,34 @@
 // npm install vue-i18n@next - 설치
 import { useI18n } from "vue-i18n";
 import { reactive, ref, watchEffect } from "vue";
+
+// ✅ 여기 안에서 useI18n을 사용해야 함
 const { t, locale } = useI18n();
+
 const showToast = ref(false);
-// 페이지 로드시 즉시 다크모드 설정 적용
-// localStorage에서 "darkMode" 가져옴(문자열 "true" 또는  "false")
+
 const isDarkMode = localStorage.getItem("darkMode") === "true";
-// 설정정보를 담고 있는 반응형 객체
 const settings = reactive({
-  emailNotifications: true, //이메일 알림 여부
+  emailNotifications: true,
   pushNotifications: true,
   cancelNotifications: false,
   autoSave: true,
-  // 다크모드 설정
-  //  기본값 : localStorage에서 가져온 isDarkMode 값
-  // true면 다크모드 , false면 라이트 모드
   darkMode: isDarkMode,
-  //   언어설정
   language: localStorage.getItem("language") || "ko",
 });
 
+watchEffect(() => {
+  locale.value = settings.language;
+  localStorage.setItem("language", settings.language);
+
+  const isDark = settings.darkMode;
+  localStorage.setItem("darkMode", isDark);
+  if (isDark) {
+    document.documentElement.classList.add("dark");
+  } else {
+    document.documentElement.classList.remove("dark");
+  }
+});
 // 다크모드설정이 변경될때마다 실행시킴
 watchEffect(() => {
   // 언어 변경 감시
