@@ -271,12 +271,12 @@ watchEffect(() => {
   // 언어 변경 감시
   locale.value = settings.language;
   localStorage.setItem("language", settings.language);
-//   사용자가 웹사이트에서 다크 모드 버튼을 클릭하면 settings.darkMode 값이 true 또는 false로 바뀝니다.
-// 그 값에 따라:
+  //   사용자가 웹사이트에서 다크 모드 버튼을 클릭하면 settings.darkMode 값이 true 또는 false로 바뀝니다.
+  // 그 값에 따라:
 
-// localStorage에 저장하여 새로고침해도 설정이 유지되도록 하고,
+  // localStorage에 저장하여 새로고침해도 설정이 유지되도록 하고,
 
-// HTML 문서에 .dark 클래스를 추가/삭제하여 실제 화면에 다크모드를 적용합니다.
+  // HTML 문서에 .dark 클래스를 추가/삭제하여 실제 화면에 다크모드를 적용합니다.
   //   다크모드 변경
   const isDark = settings.darkMode;
   localStorage.setItem("darkMode", isDark);
